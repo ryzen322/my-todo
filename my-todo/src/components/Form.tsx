@@ -5,6 +5,7 @@ export interface FormTodo extends Todo, Todos {
   todoForm: boolean;
   setTodoForm: React.Dispatch<React.SetStateAction<boolean>>;
   addTodo: (todo: Todo) => void;
+  updateTodo: (todo: Todo) => void;
   typAction: string;
 }
 
@@ -18,6 +19,7 @@ const Form: React.FC<FormTodo> = ({
   setTodoForm,
   addTodo,
   typAction,
+  updateTodo,
 }) => {
   const [formData, setFormData] = useState<Todo>({
     id: id || Math.random() * 99,
@@ -26,9 +28,18 @@ const Form: React.FC<FormTodo> = ({
     date: date || 0,
     isActive: isActive || false,
   });
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { value, name } = e.currentTarget;
+
+    const { fullName, todo } = formData;
+    if (fullName.length + 0 >= 5 && todo.length + 0 >= 5) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+
     setFormData((prev: Todo) => ({
       ...prev,
       [name]: name === "isActive" ? !formData.isActive : value,
@@ -43,6 +54,7 @@ const Form: React.FC<FormTodo> = ({
 
     if (typAction === "update_todo") {
       setTodoForm(!todoForm);
+      updateTodo(formData);
     }
     setFormData({
       id: Math.random() * 99,
@@ -104,9 +116,16 @@ const Form: React.FC<FormTodo> = ({
         />
       </div>
       <div className=" flex gap-2">
-        <button type="submit">
-          {typAction === "add_todo" ? "submit" : "Update"}
+        <button
+          type="submit"
+          className={` text-blue-300 ${
+            btnDisabled ? "cursor-no-drop" : "cursor-pointer"
+          }`}
+          disabled={btnDisabled}
+        >
+          {typAction === "add_todo" ? "Submit" : "Update"}
         </button>
+
         <button type="button" onClick={closeForm}>
           Close
         </button>

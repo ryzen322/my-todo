@@ -11,6 +11,7 @@ const Portal: React.FC<FormTodo> = ({
   todoForm,
   setTodoForm,
   typAction,
+  updateTodo,
 }) => {
   return (
     <Modal>
@@ -25,6 +26,7 @@ const Portal: React.FC<FormTodo> = ({
             setTodoForm={setTodoForm}
             todoForm={todoForm}
             typAction={typAction}
+            updateTodo={updateTodo}
           />
         </div>
       </div>
