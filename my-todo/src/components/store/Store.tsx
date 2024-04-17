@@ -15,6 +15,7 @@ export interface Todo {
 export interface Todos {
   todoList: Todo[];
   addTodo: (todo: Todo) => void;
+  updateTodo: (todo: Todo) => void;
 }
 
 type ADD_TODO = { type: "ADD_TODO"; payload: Todo };
@@ -40,16 +41,22 @@ const Store: React.FC<layoutPropos> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     todoList: [],
     addTodo: () => {},
+    updateTodo: () => {},
   });
 
-  console.log(state);
-
   const addTodo = (todo: Todo): void => {
+    console.log("clicked");
     dispatch({ type: "ADD_TODO", payload: todo });
   };
 
+  const updateTodo = (todo: Todo): void => {
+    console.log(todo);
+  };
+
   return (
-    <TodoContext.Provider value={{ todoList: state.todoList, addTodo }}>
+    <TodoContext.Provider
+      value={{ todoList: state.todoList, addTodo, updateTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );
