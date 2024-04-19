@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Mouse",
+    "price": 5.99,
+    "imgURL": "https://i.rtings.com/assets/products/1htouLNw/amazonbasics-3-button-usb-wired-mouse/design-large.jpg?format=auto",
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "name": "Monitor",
+    "price": 6.99,
+    "imgURL": "https://i.pcmag.com/imagery/reviews/01BhtiVUgAFBrmwkpmLr9gw-1.fit_lim.size_840x473.v1679463734.jpg",
+    "quantity": 1
+  },
+  {
+    "id": 3,
+    "name": "Keyboard",
+    "price": 15.99,
+    "imgURL": "https://shop.tti.com.ph/pub/media/catalog/product/cache/f965990a51d7a9eb6261f6885f3e306c/k/5/k530_rgb_1.png",
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "name": "Cpu",
+    "price": 111.99,
+    "imgURL": "https://t3.ftcdn.net/jpg/00/81/24/72/360_F_81247213_OYvGTCn5mnQQ2c0gWJ1U5ixcbmNBaMOp.jpg",
+    "quantity": 1
+  },
+  {
+    "id": 5,
+    "name": "Ram",
+    "price": 33.99,
+    "imgURL": "https://www.hp.com/us-en/shop/app/assets/images/uploads/prod/what-is-dram1618865025445396.jpg",
+    "quantity": 1
+  }
+]
