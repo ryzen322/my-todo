@@ -1,10 +1,38 @@
 import { useReducer } from "react";
-import { StoreActions, StoreObj } from "../utilities";
+import { StoreActions, StoreObj, ContextInter } from "../utilities";
 
-export interface ContextInter {
-  store: StoreObj[];
-  addStore: (item: StoreObj) => void;
-}
+type OperatorType = "ADDTION" | "SUBTRACTION" | "MULTIPLICATION";
+
+const updatedItem = (
+  id: number,
+  operator: OperatorType,
+  item: StoreObj[]
+): StoreObj[] => {
+  let incrementByValue = 0;
+
+  switch (operator) {
+    case "ADDTION":
+      incrementByValue = 1;
+      break;
+    case "SUBTRACTION":
+      incrementByValue = -1;
+      break;
+    default:
+      incrementByValue;
+  }
+
+  const latestStore = item.map((value) =>
+    value.id === id
+      ? {
+          ...value,
+          quantity: value.quantity + incrementByValue,
+          price: value.price * value.quantity,
+        }
+      : value
+  );
+
+  return latestStore;
+};
 
 function reducer(state: ContextInter, action: StoreActions): ContextInter {
   if (action.type === "ADD_STORE") {
@@ -17,15 +45,7 @@ function reducer(state: ContextInter, action: StoreActions): ContextInter {
     if (existingItemIndex !== -1) {
       const updateStore = [...state.store];
 
-      const latestStore = updateStore.map((value) =>
-        value.id === newItem.id
-          ? {
-              ...value,
-              quantity: value.quantity + 1,
-              price: value.price * value.quantity,
-            }
-          : value
-      );
+      const latestStore = updatedItem(newItem.id, "ADDTION", updateStore);
 
       return {
         ...state,
@@ -39,12 +59,26 @@ function reducer(state: ContextInter, action: StoreActions): ContextInter {
     };
   }
   if (action.type === "UPDATE_STORE") {
-    return state;
+    const updated = action.payload;
+
+    const updateItem = state.store.map((item) =>
+      item.id === updated.id ? updated : item
+    );
+
+    return {
+      ...state,
+      store: updateItem,
+    };
   }
   if (action.type === "DELETE_STORE") {
+    const id = action.payload;
+    console.log(id);
+
     return state;
   }
   if (action.type === "INCREASE_PRICE") {
+    const id = action.payload;
+    console.log(id);
     return state;
   }
 
@@ -60,11 +94,14 @@ const useContextStore = (): ContextInter => {
   function addStore(item: StoreObj): void {
     dispatch({ type: "ADD_STORE", payload: item });
   }
+  const deleteItem = (id: number) => {
+    console.log(id);
+  };
 
-  console.log(store);
   return {
-    addStore,
     store,
+    addStore,
+    deleteItem,
   };
 };
 

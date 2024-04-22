@@ -1,10 +1,13 @@
 import { useContext } from "react";
-import { StoreObj } from "../utilities";
+import { ContextInter, StoreObj } from "../utilities";
 import { StoreContext } from "../context/Context";
-import { ContextInter } from "../hooks/useContext";
 
 const List = ({ id, imgURL, name, price, quantity }: StoreObj) => {
-  const { addStore } = useContext(StoreContext) as ContextInter;
+  const { addStore, deleteItem } = useContext(StoreContext) as ContextInter;
+
+  const itemDelete = (id: number) => {
+    deleteItem(id);
+  };
 
   return (
     <li className=" h-[12rem] bg-stone-600 rounded-md overflow-hidden p-1 flex gap-1">
@@ -29,12 +32,17 @@ const List = ({ id, imgURL, name, price, quantity }: StoreObj) => {
         </div> */}
         <div className=" mt-auto flex justify-between">
           <button
+            type="button"
             className=" px-2 py-1 bg-blue-500 rounded-md text-sm font-medium"
             onClick={() => addStore({ id, imgURL, name, price, quantity })}
           >
             Add To Cart
           </button>
-          <button className=" px-2 py-1 bg-blue-500 rounded-md text-sm font-medium">
+          <button
+            type="button"
+            className=" px-2 py-1 bg-blue-500 rounded-md text-sm font-medium"
+            onClick={() => itemDelete(id)}
+          >
             Remove Cart
           </button>
         </div>

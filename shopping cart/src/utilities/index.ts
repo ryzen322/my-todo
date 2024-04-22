@@ -16,3 +16,8 @@ export type StoreActions =
   | DELETE_STORE
   | UPDATE_STORE
   | INCREASE_PRICE;
+
+export interface ContextInter {
+  store: StoreObj[];
+  addStore: (item: StoreObj) => void;
+}
